@@ -12,7 +12,7 @@ class WebHook(_PluginBase):
     # 插件描述
     plugin_desc = "自动下载弹幕"
     # 插件图标
-    plugin_icon = "danmu.png"
+    plugin_icon = "https://github.com/Summer-Tail/MoviePilot-Plugins/blob/main/icons/danmu.png?raw=true"
     # 插件版本
     plugin_version = "1.0"
     # 插件作者
