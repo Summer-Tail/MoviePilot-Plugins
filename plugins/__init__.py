@@ -30,12 +30,14 @@ class WebHook(_PluginBase):
     _method = None
     _enabled = False
     _danmuUrl = None
+    _time = None
 
     def init_plugin(self, config: dict = None):
         if config:
             self._enabled = config.get("enabled")
             self._danmuUrl = config.get("danmuUrl")
             self._method = config.get('request_method')
+            self._time = config.get('time')
 
     def get_state(self) -> bool:
         return self._enabled
@@ -89,8 +91,24 @@ class WebHook(_PluginBase):
                                     {
                                         "component": "VTextField",
                                         "props": {
-                                            "model": "danmuUrl",
-                                            "label": "弹幕URL(仅支持腾讯)"
+                                            "model": "danmuku",
+                                            "label": "需要刷新弹幕的库id"
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                "component": "VCol",
+                                "props": {
+                                    "cols": 12,
+                                    "md": 4
+                                },
+                                "content": [
+                                    {
+                                        "component": "VTextField",
+                                        "props": {
+                                            "model": "time",
+                                            "label": "媒体库更新周期"
                                         }
                                     }
                                 ]
@@ -107,9 +125,21 @@ class WebHook(_PluginBase):
     def get_page(self) -> List[dict]:
         pass
 
-    @eventmanager.register(EventType('site.updated'))
-    def send(self, event):
-        logger.error(event)
+    def get_service(self):
+        """
+        获取插件服务
+        """
+        return [{
+            "id": "danmuDownload",
+            "name": "弹幕下载",
+            "trigger": "cron",
+            "func": self.downloaddanmu,
+            "kwargs": {self.time}
+        }]
+
+    def downloaddanmu(self):
+        logger.info(self._time)
+        pass
 
     def stop_service(self):
         """
