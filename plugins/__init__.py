@@ -12,7 +12,7 @@ class WebHook(_PluginBase):
     # 插件描述
     plugin_desc = "自动下载弹幕"
     # 插件图标
-    plugin_icon = "https://github.com/Summer-Tail/MoviePilot-Plugins/blob/main/icons/danmu.png?raw=true"
+    plugin_icon = "https://raw.githubusercontent.com/Summer-Tail/MoviePilot-Plugins/main/icons/danmu.png"
     # 插件版本
     plugin_version = "1.0"
     # 插件作者
@@ -124,6 +124,18 @@ class WebHook(_PluginBase):
 
     def get_page(self) -> List[dict]:
         pass
+
+    def get_service(self):
+        """
+        获取插件服务
+        """
+        return [{
+            "id": "danmuDownload",
+            "name": "弹幕下载",
+            "trigger": "cron",
+            "func": self.downloaddanmu,
+            "kwargs": {self.time}
+        }]
 
     def downloaddanmu(self):
         logger.info(self._time)

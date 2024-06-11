@@ -4,7 +4,7 @@
         "description": "从指定视频站定时下载弹幕",
         "labels": "站点",
         "version": "1.0",
-        "icon": "https://github.com/Summer-Tail/MoviePilot-Plugins/blob/main/icons/danmu.png",
+        "icon": "https://raw.githubusercontent.com/Summer-Tail/MoviePilot-Plugins/main/icons/danmu.png",
         "author": "SummerTail",
         "level": 1,
         "history": {
