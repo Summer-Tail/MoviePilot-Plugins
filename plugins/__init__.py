@@ -58,84 +58,112 @@ class WebHook(_PluginBase):
                 "component": "VForm",
                 "content": [
                     {
-                        "component": "VRow",
-                        "content": [
+                        'component': 'VRow',
+                        'content': [
                             {
-                                "component": "VCol",
-                                "props": {
-                                    "cols": 12,
-                                    "md": 6
+                                'component': 'VCol',
+                                'props': {
+                                    'cols': 12,
+                                    'md': 6
                                 },
-                                "content": [
+                                'content': [
                                     {
-                                        "component": "VSwitch",
-                                        "props": {
-                                            "model": "enabled",
-                                            "label": "启用插件"
+                                        'component': 'VSwitch',
+                                        'props': {
+                                            'model': 'enabled',
+                                            'label': '启用插件',
                                         }
                                     }
                                 ]
-                            }
+                            },
+                            {
+                                'component': 'VCol',
+                                'props': {
+                                    'cols': 12,
+                                    'md': 6
+                                },
+                                'content': [
+                                    {
+                                        'component': 'VSwitch',
+                                        'props': {
+                                            'model': 'onlyonce',
+                                            'label': '立即运行一次',
+                                        }
+                                    }
+                                ]
+                            },
                         ]
                     },
                     {
                         "component": "VRow",
                         "content": [
                             {
-                                "component": "VCol",
-                                "props": {
-                                    "cols": 12,
-                                    "md": 4
+                                'component': 'VCol',
+                                'props': {
+                                    'cols': 12,
+                                    'md': 6
                                 },
-                                "content": [
+                                'content': [
                                     {
-                                        "component": "VTextField",
-                                        "props": {
-                                            "model": "danmuku",
-                                            "label": "需要刷新弹幕的库id"
+                                        'component': 'VTextField',
+                                        'props': {
+                                            'model': 'cron',
+                                            'label': '执行周期',
+                                            'placeholder': '5位cron表达式，留空自动'
                                         }
                                     }
                                 ]
                             },
                             {
-                                "component": "VCol",
-                                "props": {
-                                    "cols": 12,
-                                    "md": 4
+                                'component': 'VCol',
+                                'props': {
+                                    'cols': 12,
+                                    'md': 6
                                 },
-                                "content": [
+                                'content': [
                                     {
-                                        "component": "VTextField",
-                                        "props": {
-                                            "model": "time",
-                                            "label": "媒体库更新周期"
+                                        'component': 'VTextField',
+                                        'props': {
+                                            'model': 'days',
+                                            'label': '最新入库天数'
+                                        }
+                                    }
+                                ]
+                            }
+                        ],
+                    },
+                    {
+                        'component': 'VRow',
+                        'content': [
+                            {
+                                'component': 'VCol',
+                                'props': {
+                                    'cols': 12,
+                                },
+                                'content': [
+                                    {
+                                        'component': 'VAlert',
+                                        'props': {
+                                            'type': 'info',
+                                            'variant': 'tonal',
+                                            'text': '查询入库记录，周期请求媒体服务器元数据刷新接口。注：只支持Emby。'
                                         }
                                     }
                                 ]
                             }
                         ]
                     }
-                ]
+                ],
             }
         ], {
             "enabled": False,
-            "danmuUrl": ""
+            "onlyonce": False,
+            "cron": "5 1 * * *",
+            "days": 5
         }
 
     def get_page(self) -> List[dict]:
         pass
-
-    def get_service(self):
-        """
-        获取插件服务
-        """
-        return [{
-            "id": "danmuDownload",
-            "name": "弹幕下载",
-            "trigger": "cron",
-            "func": self.downloaddanmu,
-            "kwargs": {self.time}
-        }]
 
     def downloaddanmu(self):
         logger.info(self._time)
