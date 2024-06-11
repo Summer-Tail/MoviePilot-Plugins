@@ -125,18 +125,6 @@ class WebHook(_PluginBase):
     def get_page(self) -> List[dict]:
         pass
 
-    def get_service(self):
-        """
-        获取插件服务
-        """
-        return [{
-            "id": "danmuDownload",
-            "name": "弹幕下载",
-            "trigger": "cron",
-            "func": self.downloaddanmu,
-            "kwargs": {self.time}
-        }]
-
     def downloaddanmu(self):
         logger.info(self._time)
         pass
